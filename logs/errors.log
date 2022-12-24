@@ -1,6 +1,3 @@
 
 [2022-12-23T16:50:39.567] [ERROR] default - Error en api Mensajes: Error: ENOENT: no such file or directory, open 'D:\Bakup\BACKEND\desafio_clase34\data\mensajes.json'
-[2022-12-24T10:24:41.535] [ERROR] default - Error en api Productos: Error: connect ECONNREFUSED 127.0.0.1:3306
-[2022-12-24T14:52:32.863] [ERROR] default - Error en api Productos: Error: Access denied for user 'root'@'localhost' (using password: YES)
-[2022-12-24T14:53:17.316] [ERROR] default - Error en api Productos: Error: Access denied for user 'root'@'localhost' (using password: YES)
-[2022-12-24T14:54:48.111] [ERROR] default - Error en api Productos: Error: Unknown database 'bd_prouctos'
+
