@@ -5,7 +5,7 @@ const db_host = process.env.DB_HOST_SQL || "localhost";
 const db_port = Number(process.env.DB_PORT_SQL) || "3306";
 const db_user = process.env.DB_USER_SQL || "root";
 const db_name = process.env.DB_NAME_SQL || "bd_productos";
-const db_password = process.env.DB_PASSWORD || "back1234";
+const db_password = process.env.DB_PASSWORD_SQL || "back1234";
 
 const connection = {
   client: `${db_client}`,
