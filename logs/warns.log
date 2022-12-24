@@ -1,2 +1,7 @@
 
 [2022-12-23T16:50:39.567] [ERROR] default - Error en api Mensajes: Error: ENOENT: no such file or directory, open 'D:\Bakup\BACKEND\desafio_clase34\data\mensajes.json'
+[2022-12-24T17:30:13.370] [WARN] default - Ruta Inexistente: Método GET Ruta: /favicon.ico
+[2022-12-24T17:43:03.630] [WARN] default - Ruta Inexistente: Método GET Ruta: /favicon.ico
+[2022-12-24T18:04:44.207] [WARN] default - Ruta Inexistente: Método GET Ruta: /favicon.ico
+[2022-12-24T18:04:58.426] [WARN] default - Ruta Inexistente: Método GET Ruta: /favicon.ico
+[2022-12-24T18:05:05.614] [WARN] default - Ruta Inexistente: Método GET Ruta: /favicon.ico
