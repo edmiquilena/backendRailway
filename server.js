@@ -1,34 +1,26 @@
 import express from "express";
-import connection from "./config/configMySql.js";
+import * as dotenv from "dotenv";
+
+import { Server as HttpServer } from "http";
+
+import session from "express-session";
 
 import cluster from "cluster";
 import { cpus } from "os";
+import ParsedArgs from "minimist";
+import logger from "./config/configLoggers.js";
 
-import { Server as HttpServer } from "http";
-import { Server as Socket } from "socket.io";
-import socketProductos from "./socket/productos.js"
-import socketMensajes from "./socket/mensajes.js"
-
-import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import { DBConnect } from "./config/configMongoDb.js";
 
 import homeRouter from "./routers/home.js";
-import randomRouter from "./routers/random_products.js";
-import numberRouter from "./routers/random_numbers.js";
-import infoRouter from "./routers/info.js";
-import ParsedArgs from "minimist";
-
-import logger from "./config/configLoggers.js";
-
-import * as dotenv from "dotenv";
+import mainProductos from "./routers/mainProductos.js";
+import mainCarritos from "./routers/mainCarritos.js";
 
 dotenv.config();
-
 const app = express();
 const httpServer = new HttpServer(app);
-const io = new Socket(httpServer);
 const cpu = cpus();
 
 //LOGGUER -------------------------------------
@@ -37,19 +29,19 @@ app.use((req, res, next) => {
   next();
 });
 
+//MIDDLEWARES / VISTAS -----------------------------------------------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
-//SESSION -----------------------------------------
+//SERVIDOR -----------------------------------------
 app.use(
   session({
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://almamani:nodejs2022@cluster0.fl6igxt.mongodb.net/ecommerce?retryWrites=true&w=majority",
+      "mongodb+srv://almamani:nodejs2022@cluster0.fl6igxt.mongodb.net/ecommerce?retryWrites=true&w=majority",
       //ttl: 600000
     }),
 
@@ -65,23 +57,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//RUTAS --------------------------------------
+//RUTAS -----------------------------------------------------------
 app.use(homeRouter);
-app.use(randomRouter);
-app.use(infoRouter);
-app.use("/api/randoms", numberRouter);
+app.use("/api/productos", mainProductos);
+app.use("/api/carrito", mainCarritos);
 
+// CONTROL RUTAS INVALIDAS ---------------------------------------------
 app.all("*", (req, res) => {
   logger.warn(`Ruta Inexistente: Método ${req.method} Ruta: ${req.url}`);
   res.send({ error: true }).status(500);
 });
 
-//SOKET-----------------------------------
-io.on("connection", async (socket) => {
-  console.log("Nuevo cliente conectado");
-  socketProductos(socket, io.sockets);
-  socketMensajes(socket, io.sockets);
-});
 
 // INICIO SERVIDOR -----------------------------------
 const options = {
