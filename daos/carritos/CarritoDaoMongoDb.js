@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import ContenedorMongoDB from "../../contenedores/ContenedorMongoDB.js";
+import ContenedorMongoDB from "../../contenedores/contenedorMongoDb.js";
 import logger from "../../config/configLoggers.js";
 
 const products = new Schema({
